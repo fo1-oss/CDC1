@@ -1,0 +1,1589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crepdog Crew - Investor Data Room | Jan'26</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --cream: #F5F3EB;
+            --lime: #C0E529;
+            --lime-dark: #9BBF1E;
+            --olive: #6B8E23;
+            --olive-dark: #4A5D23;
+            --olive-darker: #3D4A2B;
+            --black: #000000;
+            --white: #FFFFFF;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--cream);
+            color: var(--black);
+            min-height: 100vh;
+            background-image: url("data:image/svg+xml,%3Csvg width='400' height='400' viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 200 Q100 180 200 200 T400 200' fill='none' stroke='%23E5E3DB' stroke-width='1.5'/%3E%3Cpath d='M0 100 Q100 80 200 100 T400 100' fill='none' stroke='%23E5E3DB' stroke-width='1'/%3E%3Cpath d='M0 300 Q100 280 200 300 T400 300' fill='none' stroke='%23E5E3DB' stroke-width='1'/%3E%3Cpath d='M0 50 Q100 30 200 50 T400 50' fill='none' stroke='%23E5E3DB' stroke-width='0.8'/%3E%3Cpath d='M0 150 Q100 130 200 150 T400 150' fill='none' stroke='%23E5E3DB' stroke-width='0.8'/%3E%3Cpath d='M0 250 Q100 230 200 250 T400 250' fill='none' stroke='%23E5E3DB' stroke-width='0.8'/%3E%3Cpath d='M0 350 Q100 330 200 350 T400 350' fill='none' stroke='%23E5E3DB' stroke-width='0.8'/%3E%3C/svg%3E");
+        }
+
+        .app { display: flex; min-height: 100vh; }
+
+        /* Sidebar */
+        .sidebar {
+            width: 240px;
+            background: var(--white);
+            border-right: 3px solid var(--black);
+            position: fixed;
+            height: 100vh;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-container {
+            padding: 28px 24px;
+            border-bottom: 3px solid var(--black);
+        }
+
+        .logo {
+            font-weight: 900;
+            font-size: 22px;
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+        }
+
+        .logo-badge {
+            display: inline-block;
+            background: var(--lime);
+            border: 2px solid var(--black);
+            border-radius: 6px;
+            padding: 4px 10px;
+            font-size: 10px;
+            font-weight: 800;
+            margin-top: 8px;
+        }
+
+        .nav { padding: 20px 16px; flex: 1; overflow-y: auto; }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            border-radius: 14px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 4px;
+            border: 2px solid transparent;
+            transition: all 0.15s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .nav-item:hover { background: rgba(192, 229, 41, 0.2); }
+
+        .nav-item.active {
+            background: var(--white);
+            border-color: var(--black);
+        }
+
+        .nav-item .icon {
+            width: 32px;
+            height: 32px;
+            background: var(--black);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 13px;
+        }
+
+        .nav-item.active .icon { background: var(--olive-darker); }
+
+        /* Main */
+        .main {
+            flex: 1;
+            margin-left: 240px;
+            padding: 32px 40px;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 80px;
+            padding-top: 20px;
+        }
+
+        /* Header */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 32px;
+        }
+
+        .page-title {
+            font-size: 42px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            line-height: 1.1;
+        }
+
+        .title-highlight {
+            background: linear-gradient(180deg, transparent 60%, var(--lime) 60%);
+            padding: 0 4px;
+        }
+
+        .title-underline {
+            width: 80px;
+            height: 4px;
+            background: var(--black);
+            margin-top: 12px;
+        }
+
+        .page-subtitle {
+            font-size: 18px;
+            font-weight: 400;
+            color: #444;
+            margin-top: 8px;
+        }
+
+        .header-logo {
+            text-align: right;
+            font-weight: 900;
+            font-size: 14px;
+            line-height: 1.1;
+        }
+
+        /* CDC Card */
+        .cdc-card {
+            background: var(--lime);
+            border: 3px solid var(--black);
+            border-radius: 20px;
+            padding: 24px;
+        }
+
+        .cdc-card.white { background: var(--white); }
+        .cdc-card.dark { background: var(--olive-dark); color: var(--white); }
+        .cdc-card.darker { background: var(--olive-darker); color: var(--white); }
+        .cdc-card.black { background: var(--black); color: var(--white); }
+
+        /* Metric Row */
+        .metric-row {
+            display: flex;
+            align-items: center;
+            background: var(--lime);
+            border: 2px solid var(--black);
+            border-radius: 50px;
+            padding: 6px;
+            margin-bottom: 10px;
+        }
+
+        .metric-row-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--black);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .metric-row-label {
+            flex: 1;
+            padding: 0 16px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .metric-row-value {
+            background: var(--white);
+            border-radius: 50px;
+            padding: 10px 18px;
+            font-weight: 700;
+            font-size: 14px;
+            font-style: italic;
+        }
+
+        /* Stat Pills */
+        .stat-pills {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+
+        .stat-pill {
+            background: var(--lime);
+            border: 2px solid var(--black);
+            border-radius: 14px;
+            padding: 12px 20px;
+        }
+
+        .stat-pill-label {
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .stat-pill-value {
+            font-size: 20px;
+            font-weight: 900;
+        }
+
+        /* Grid */
+        .grid { display: grid; gap: 20px; }
+        .grid-2 { grid-template-columns: repeat(2, 1fr); }
+        .grid-3 { grid-template-columns: repeat(3, 1fr); }
+        .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+        /* Chart Header */
+        .chart-header { margin-bottom: 20px; }
+        .chart-title { font-size: 20px; font-weight: 900; }
+        .chart-underline { width: 50px; height: 3px; background: var(--black); margin-top: 8px; }
+
+        /* Unit Economics */
+        .unit-econ-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+
+        .unit-econ-col h4 {
+            display: inline-block;
+            background: var(--white);
+            border: 2px solid var(--black);
+            border-radius: 50px;
+            padding: 8px 24px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .econ-bar { margin-bottom: 8px; }
+
+        .econ-bar-track {
+            height: 36px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .econ-bar-track.light { color: var(--black); }
+
+        /* Store Cards */
+        .store-card {
+            background: var(--lime);
+            border: 3px solid var(--black);
+            border-radius: 20px;
+            padding: 24px;
+        }
+
+        .store-card.dark { background: var(--olive-dark); color: var(--white); }
+        .store-card.darker { background: var(--olive-darker); color: var(--white); }
+
+        .store-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .store-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--white);
+            border: 2px solid var(--black);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .store-card.dark .store-icon,
+        .store-card.darker .store-icon {
+            background: var(--lime);
+            color: var(--black);
+        }
+
+        .store-name { font-size: 20px; font-weight: 800; }
+        .store-meta { font-size: 11px; opacity: 0.7; margin-top: 2px; }
+        .store-revenue { font-size: 42px; font-weight: 900; margin-bottom: 4px; }
+        .store-label { font-size: 12px; opacity: 0.7; margin-bottom: 16px; }
+
+        .store-bar {
+            height: 10px;
+            background: rgba(0,0,0,0.15);
+            border-radius: 5px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .store-card.dark .store-bar,
+        .store-card.darker .store-bar { background: rgba(255,255,255,0.2); }
+
+        .store-bar-fill {
+            height: 100%;
+            background: var(--olive-darker);
+            border-radius: 5px;
+        }
+
+        .store-card.dark .store-bar-fill,
+        .store-card.darker .store-bar-fill { background: var(--lime); }
+
+        .store-mix { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+        .store-mix-item {
+            background: var(--white);
+            border: 2px solid var(--black);
+            border-radius: 12px;
+            padding: 14px;
+            text-align: center;
+        }
+
+        .store-card.dark .store-mix-item,
+        .store-card.darker .store-mix-item {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .store-mix-value { font-size: 24px; font-weight: 900; }
+        .store-mix-label { font-size: 11px; opacity: 0.6; margin-top: 2px; }
+
+        /* Data Table */
+        .data-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: 12px 16px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #666;
+        }
+
+        .data-table td {
+            padding: 16px;
+            font-size: 14px;
+            background: var(--white);
+        }
+
+        .data-table tr td:first-child { border-radius: 12px 0 0 12px; }
+        .data-table tr td:last-child { border-radius: 0 12px 12px 0; }
+
+        .data-table tr.highlight td {
+            background: var(--lime);
+            border-top: 3px solid var(--black);
+            border-bottom: 3px solid var(--black);
+        }
+
+        .data-table tr.highlight td:first-child { border-left: 3px solid var(--black); }
+        .data-table tr.highlight td:last-child { border-right: 3px solid var(--black); }
+
+        /* Founder Cards */
+        .founder-card {
+            background: var(--lime);
+            border: 3px solid var(--black);
+            border-radius: 20px;
+            padding: 28px;
+            text-align: center;
+        }
+
+        .founder-card.dark { background: var(--olive-dark); color: var(--white); }
+        .founder-card.darker { background: var(--olive-darker); color: var(--white); }
+
+        .founder-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--black);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 28px;
+            font-weight: 900;
+            margin: 0 auto 16px;
+        }
+
+        .founder-card.dark .founder-avatar,
+        .founder-card.darker .founder-avatar {
+            background: var(--lime);
+            color: var(--black);
+        }
+
+        .founder-name { font-size: 20px; font-weight: 800; }
+
+        .founder-role {
+            display: inline-block;
+            background: var(--white);
+            border: 2px solid var(--black);
+            border-radius: 50px;
+            padding: 6px 16px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-top: 8px;
+        }
+
+        .founder-card.dark .founder-role,
+        .founder-card.darker .founder-role { background: var(--lime); }
+
+        .founder-details { margin-top: 20px; text-align: left; }
+
+        .founder-detail {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--white);
+            border-radius: 10px;
+            padding: 10px 14px;
+            margin-bottom: 8px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .founder-card.dark .founder-detail,
+        .founder-card.darker .founder-detail { background: rgba(255,255,255,0.1); }
+
+        .founder-detail i { color: var(--olive-dark); }
+        .founder-card.dark .founder-detail i,
+        .founder-card.darker .founder-detail i { color: var(--lime); }
+
+        /* Document Cards */
+        .doc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+        .doc-card {
+            background: var(--white);
+            border: 3px solid var(--black);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .doc-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 6px 6px 0 var(--black);
+        }
+
+        .doc-card-header {
+            padding: 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .doc-card-header.lime { background: var(--lime); }
+        .doc-card-header.olive { background: var(--olive-dark); color: var(--white); }
+        .doc-card-header.black { background: var(--black); color: var(--white); }
+
+        .doc-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--white);
+            border: 2px solid var(--black);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .doc-card-header.olive .doc-icon,
+        .doc-card-header.black .doc-icon { background: var(--lime); }
+
+        .doc-title { font-weight: 800; font-size: 16px; line-height: 1.2; }
+        .doc-subtitle { font-size: 12px; opacity: 0.7; margin-top: 4px; }
+
+        .doc-card-body {
+            padding: 20px 24px;
+            background: var(--cream);
+            border-top: 2px solid var(--black);
+        }
+
+        .doc-download-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 14px;
+            background: var(--black);
+            color: var(--white);
+            font-weight: 700;
+            font-size: 13px;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Notes Box */
+        .notes-box {
+            background: var(--white);
+            border: 3px solid var(--black);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 24px;
+        }
+
+        .notes-title { font-weight: 900; font-size: 14px; margin-bottom: 12px; }
+        .note-item { font-size: 12px; color: #666; margin-bottom: 4px; }
+
+        /* Team Photo */
+        .team-photo {
+            background: var(--white);
+            border: 3px solid var(--black);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .team-photo img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Contact Box */
+        .contact-box {
+            background: var(--olive-darker);
+            border: 3px solid var(--black);
+            border-radius: 20px;
+            padding: 32px;
+            color: var(--white);
+            margin-top: 32px;
+        }
+
+        .contact-title { font-size: 24px; font-weight: 900; margin-bottom: 8px; }
+        .contact-subtitle { opacity: 0.7; margin-bottom: 24px; }
+
+        .contact-btns { display: flex; gap: 16px; }
+
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 14px;
+            text-decoration: none;
+            border: 2px solid var(--black);
+            transition: all 0.2s;
+        }
+
+        .contact-btn.primary {
+            background: var(--lime);
+            color: var(--black);
+        }
+
+        .contact-btn.secondary {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.3);
+        }
+
+        /* Access Overlay */
+        .access-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--cream);
+            background-image: url("data:image/svg+xml,%3Csvg width='400' height='400' viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 200 Q100 180 200 200 T400 200' fill='none' stroke='%23E5E3DB' stroke-width='1.5'/%3E%3Cpath d='M0 100 Q100 80 200 100 T400 100' fill='none' stroke='%23E5E3DB' stroke-width='1'/%3E%3Cpath d='M0 300 Q100 280 200 300 T400 300' fill='none' stroke='%23E5E3DB' stroke-width='1'/%3E%3C/svg%3E");
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .access-overlay.hidden { display: none; }
+
+        .access-card {
+            background: var(--white);
+            border: 3px solid var(--black);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .access-icon {
+            width: 72px;
+            height: 72px;
+            background: var(--lime);
+            border: 3px solid var(--black);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 24px;
+        }
+
+        .access-title { font-size: 28px; font-weight: 900; margin-bottom: 8px; }
+        .access-subtitle { color: #666; margin-bottom: 32px; }
+
+        .access-form input,
+        .access-form textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid var(--black);
+            border-radius: 12px;
+            font-size: 14px;
+            font-family: inherit;
+            margin-bottom: 12px;
+        }
+
+        .access-form input:focus,
+        .access-form textarea:focus {
+            outline: none;
+            box-shadow: 4px 4px 0 var(--lime);
+        }
+
+        .access-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--lime);
+            border: 3px solid var(--black);
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .access-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 4px 4px 0 var(--black);
+        }
+
+        .access-note { font-size: 12px; color: #999; margin-top: 20px; }
+
+        .access-logo {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 2px solid #eee;
+            font-weight: 900;
+            font-size: 16px;
+        }
+
+        /* Donut Container */
+        .donut-section { display: flex; flex-direction: column; align-items: center; }
+        .donut-label { text-align: center; font-weight: 700; margin-top: 12px; }
+        .donut-sublabel { font-size: 12px; color: #666; }
+
+        .mini-donut-row { display: flex; justify-content: center; gap: 40px; margin-top: 20px; }
+        .mini-donut { text-align: center; }
+        .mini-donut-title { font-weight: 700; margin-bottom: 8px; }
+
+        /* Section Divider */
+        .section-divider {
+            height: 3px;
+            background: var(--black);
+            margin: 60px 0;
+            border-radius: 2px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .grid-3 { grid-template-columns: repeat(2, 1fr); }
+            .doc-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 992px) {
+            .sidebar { display: none; }
+            .main { margin-left: 0; }
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+            .unit-econ-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .page-title { font-size: 28px; }
+            .main { padding: 20px; }
+            .doc-grid { grid-template-columns: 1fr; }
+            .contact-btns { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Access Overlay -->
+    <div id="accessOverlay" class="access-overlay">
+        <div class="access-card">
+            <div class="access-icon">
+                <i class="fas fa-lock"></i>
+            </div>
+            <h1 class="access-title">Investor Dataroom</h1>
+            <p class="access-subtitle">Request access to view confidential information</p>
+
+            <form id="accessForm" class="access-form">
+                <input type="text" placeholder="Full Name" required>
+                <input type="email" placeholder="Email Address" required>
+                <input type="text" placeholder="Organization / Fund Name" required>
+                <textarea placeholder="Brief message (optional)" rows="3"></textarea>
+                <button type="submit" class="access-btn">Request Access</button>
+            </form>
+
+            <p class="access-note">Access requests are reviewed within 24 hours</p>
+
+            <div class="access-logo">
+                <span>CREPDOG</span> <span style="color: var(--olive-dark);">CREW</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="mainApp" class="app" style="display: none;">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-container">
+                <div class="logo">
+                    <span class="logo-top">CREPDOG</span><br>
+                    <span class="logo-bottom">CREW</span>
+                </div>
+                <div class="logo-badge">INVESTOR DATA ROOM</div>
+            </div>
+
+            <nav class="nav">
+                <a href="#overview" class="nav-item active">
+                    <div class="icon"><i class="fas fa-chart-line"></i></div>
+                    Overview
+                </a>
+                <a href="#financials" class="nav-item">
+                    <div class="icon"><i class="fas fa-coins"></i></div>
+                    Financials
+                </a>
+                <a href="#channels" class="nav-item">
+                    <div class="icon"><i class="fas fa-store"></i></div>
+                    Retail vs Online
+                </a>
+                <a href="#audited" class="nav-item">
+                    <div class="icon"><i class="fas fa-file-invoice"></i></div>
+                    Audited Financials
+                </a>
+                <a href="#documents" class="nav-item">
+                    <div class="icon"><i class="fas fa-folder-open"></i></div>
+                    Documents
+                </a>
+                <a href="#team" class="nav-item">
+                    <div class="icon"><i class="fas fa-users"></i></div>
+                    Team
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content - Scrollable -->
+        <main class="main">
+            <!-- Overview Section -->
+            <section id="overview" class="section">
+                <div class="page-header">
+                    <div>
+                        <h1 class="page-title">
+                            <span class="title-highlight">Traction</span> & Key Metrics
+                        </h1>
+                        <div class="title-underline"></div>
+                        <p class="page-subtitle">YTD FY'26 operational highlights</p>
+                    </div>
+                    <div class="header-logo">
+                        <span>CREPDOG</span><br>
+                        <span style="color: var(--olive-dark);">CREW</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-2" style="margin-bottom: 32px;">
+                    <div>
+                        <div class="metric-row">
+                            <div class="metric-row-icon"><i class="fas fa-calendar"></i></div>
+                            <span class="metric-row-label">Founded</span>
+                            <span class="metric-row-value">2019</span>
+                        </div>
+                        <div class="metric-row">
+                            <div class="metric-row-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <span class="metric-row-label">Headquarters</span>
+                            <span class="metric-row-value">Delhi</span>
+                        </div>
+                        <div class="metric-row">
+                            <div class="metric-row-icon"><i class="fas fa-users"></i></div>
+                            <span class="metric-row-label">Team Size</span>
+                            <span class="metric-row-value">100+</span>
+                        </div>
+                        <div class="metric-row">
+                            <div class="metric-row-icon"><i class="fas fa-rupee-sign"></i></div>
+                            <span class="metric-row-label">ARR (Annualized)</span>
+                            <span class="metric-row-value">₹186 Crore</span>
+                        </div>
+                        <div class="metric-row">
+                            <div class="metric-row-icon"><i class="fas fa-percent"></i></div>
+                            <span class="metric-row-label">Gross Margin*</span>
+                            <span class="metric-row-value">21%</span>
+                        </div>
+                        <div class="metric-row">
+                            <div class="metric-row-icon"><i class="fas fa-chart-pie"></i></div>
+                            <span class="metric-row-label">CM2*</span>
+                            <span class="metric-row-value">10%</span>
+                        </div>
+                        <div class="metric-row">
+                            <div class="metric-row-icon"><i class="fas fa-store"></i></div>
+                            <span class="metric-row-label">Stores - 3*</span>
+                            <span class="metric-row-value">Delhi, Mumbai, Hyd</span>
+                        </div>
+                        <div class="metric-row">
+                            <div class="metric-row-icon"><i class="fas fa-receipt"></i></div>
+                            <span class="metric-row-label"># of Monthly Billings*</span>
+                            <span class="metric-row-value">8,200 orders</span>
+                        </div>
+                        <div class="metric-row">
+                            <div class="metric-row-icon"><i class="fas fa-ruler-combined"></i></div>
+                            <span class="metric-row-label">Revenue per sqft*</span>
+                            <span class="metric-row-value">₹5,000</span>
+                        </div>
+                        <div class="metric-row">
+                            <div class="metric-row-icon"><i class="fas fa-shopping-cart"></i></div>
+                            <span class="metric-row-label">Average Billing Value*</span>
+                            <span class="metric-row-value">₹12,500</span>
+                        </div>
+                        <div class="metric-row">
+                            <div class="metric-row-icon"><i class="fas fa-user-friends"></i></div>
+                            <span class="metric-row-label">Customers**</span>
+                            <span class="metric-row-value">~250,000+</span>
+                        </div>
+                        <div class="metric-row">
+                            <div class="metric-row-icon"><i class="fas fa-redo"></i></div>
+                            <span class="metric-row-label">Retention Rate*</span>
+                            <span class="metric-row-value">~30% (YTD)</span>
+                        </div>
+                    </div>
+
+                    <div class="cdc-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">Revenue Distribution</h3>
+                            <div class="chart-underline"></div>
+                        </div>
+                        <div class="donut-section">
+                            <div id="revenueDonut"></div>
+                        </div>
+                        <div class="mini-donut-row">
+                            <div class="mini-donut">
+                                <div class="mini-donut-title">Retail Mix</div>
+                                <div id="retailDonut"></div>
+                            </div>
+                            <div class="mini-donut">
+                                <div class="mini-donut-title">Online Mix</div>
+                                <div id="onlineDonut"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="notes-box">
+                    <div class="notes-title">Notes</div>
+                    <div class="note-item">*YTD FY'26 &nbsp; **LTD &nbsp; ^(Annualized basis YTD FY'26)</div>
+                </div>
+            </section>
+
+            <div class="section-divider"></div>
+
+            <!-- Financials Section -->
+            <section id="financials" class="section">
+                <div class="page-header">
+                    <div>
+                        <h1 class="page-title">
+                            <span class="title-highlight">Revenue</span> Trajectory
+                        </h1>
+                        <div class="title-underline"></div>
+                    </div>
+                    <div class="header-logo">
+                        <span>CREPDOG</span><br>
+                        <span style="color: var(--olive-dark);">CREW</span>
+                    </div>
+                </div>
+
+                <div class="cdc-card white" style="margin-bottom: 32px;">
+                    <div class="stat-pills">
+                        <div class="stat-pill">
+                            <div class="stat-pill-label"><i class="fas fa-chart-bar"></i> Consolidated Revenue</div>
+                        </div>
+                        <div class="stat-pill" style="background: var(--black); color: var(--white);">
+                            <div class="stat-pill-label">Gross Margin %</div>
+                        </div>
+                    </div>
+                    <div id="revenueChart" style="height: 350px;"></div>
+                </div>
+
+                <div class="cdc-card white">
+                    <div class="chart-header">
+                        <h3 class="chart-title">Annual P&L Summary</h3>
+                        <div class="chart-underline"></div>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Particulars</th>
+                                <th style="text-align: right;">FY'24</th>
+                                <th style="text-align: right;">FY'25</th>
+                                <th style="text-align: right;">YTD FY'26</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>GMV</strong></td>
+                                <td style="text-align: right;">₹69.0 Cr</td>
+                                <td style="text-align: right;">₹79.7 Cr</td>
+                                <td style="text-align: right; font-weight: 900;">₹93.3 Cr</td>
+                            </tr>
+                            <tr>
+                                <td style="padding-left: 24px; color: #666;">└ Shoes</td>
+                                <td style="text-align: right; color: #666;">₹52.5 Cr</td>
+                                <td style="text-align: right; color: #666;">₹62.1 Cr</td>
+                                <td style="text-align: right; color: #666;">₹78.4 Cr</td>
+                            </tr>
+                            <tr>
+                                <td style="padding-left: 24px; color: #666;">└ Apparels</td>
+                                <td style="text-align: right; color: #666;">₹16.5 Cr</td>
+                                <td style="text-align: right; color: #666;">₹17.6 Cr</td>
+                                <td style="text-align: right; color: #666;">₹14.8 Cr</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Operating Revenue</strong></td>
+                                <td style="text-align: right;">₹65.3 Cr</td>
+                                <td style="text-align: right;">₹75.6 Cr</td>
+                                <td style="text-align: right; font-weight: 900;">₹88.5 Cr</td>
+                            </tr>
+                            <tr>
+                                <td><strong>COGS</strong></td>
+                                <td style="text-align: right;">₹51.7 Cr</td>
+                                <td style="text-align: right;">₹59.5 Cr</td>
+                                <td style="text-align: right;">₹69.9 Cr</td>
+                            </tr>
+                            <tr class="highlight">
+                                <td><strong>Gross Profit</strong></td>
+                                <td style="text-align: right; font-weight: 900;">₹13.7 Cr</td>
+                                <td style="text-align: right; font-weight: 900;">₹16.1 Cr</td>
+                                <td style="text-align: right; font-weight: 900;">₹18.6 Cr</td>
+                            </tr>
+                            <tr class="highlight">
+                                <td><strong>Gross Margin %</strong></td>
+                                <td style="text-align: right; font-weight: 900;">20.9%</td>
+                                <td style="text-align: right; font-weight: 900;">21.3%</td>
+                                <td style="text-align: right; font-weight: 900;">21.1%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <div class="section-divider"></div>
+
+            <!-- Channels Section -->
+            <section id="channels" class="section">
+                <div class="page-header">
+                    <div>
+                        <h1 class="page-title">
+                            <span class="title-highlight">Unit Economics</span> - Online vs Retail
+                        </h1>
+                        <div class="title-underline"></div>
+                    </div>
+                    <div class="header-logo">
+                        <span>CREPDOG</span><br>
+                        <span style="color: var(--olive-dark);">CREW</span>
+                    </div>
+                </div>
+
+                <div class="cdc-card white" style="margin-bottom: 32px;">
+                    <div class="unit-econ-grid">
+                        <div class="unit-econ-col">
+                            <h4>Online</h4>
+                            <div class="econ-bar">
+                                <div class="econ-bar-track" style="width: 100%; background: var(--olive-darker);">Net Sales 100%</div>
+                            </div>
+                            <div class="econ-bar">
+                                <div class="econ-bar-track" style="width: 82%; background: var(--olive-dark);">COGS + GST 82%</div>
+                            </div>
+                            <div class="econ-bar">
+                                <div class="econ-bar-track light" style="width: 18%; background: var(--lime);">Gross Margin 18%</div>
+                            </div>
+                            <div class="econ-bar">
+                                <div class="econ-bar-track light" style="width: 14%; background: #9BBF1E;">CM1 14%</div>
+                            </div>
+                            <div class="econ-bar">
+                                <div class="econ-bar-track light" style="width: 3%; background: #C0E529;">Op EBITDA 3%</div>
+                            </div>
+                        </div>
+                        <div class="unit-econ-col">
+                            <h4>Retail</h4>
+                            <div class="econ-bar">
+                                <div class="econ-bar-track" style="width: 100%; background: var(--olive-darker);">Net Sales 100%</div>
+                            </div>
+                            <div class="econ-bar">
+                                <div class="econ-bar-track" style="width: 80%; background: var(--olive-dark);">COGS + GST 80%</div>
+                            </div>
+                            <div class="econ-bar">
+                                <div class="econ-bar-track light" style="width: 20%; background: var(--lime);">Gross Margin 20%</div>
+                            </div>
+                            <div class="econ-bar">
+                                <div class="econ-bar-track light" style="width: 19%; background: #9BBF1E;">CM1 19%</div>
+                            </div>
+                            <div class="econ-bar">
+                                <div class="econ-bar-track light" style="width: 9%; background: #C0E529;">Op EBITDA 9%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-pills" style="margin-bottom: 32px;">
+                    <div class="stat-pill">
+                        <div class="stat-pill-label">ROAS*</div>
+                        <div class="stat-pill-value">24X</div>
+                    </div>
+                    <div class="stat-pill">
+                        <div class="stat-pill-label">Order Fulfillment*</div>
+                        <div class="stat-pill-value">98%</div>
+                    </div>
+                    <div class="stat-pill">
+                        <div class="stat-pill-label">Marketing Spend*</div>
+                        <div class="stat-pill-value">7%</div>
+                    </div>
+                    <div class="stat-pill">
+                        <div class="stat-pill-label">ABV*</div>
+                        <div class="stat-pill-value">₹12,600</div>
+                    </div>
+                </div>
+
+                <div class="chart-header">
+                    <h3 class="chart-title">Retail - Traction <span style="font-weight: 400; font-size: 14px;">CDC Experience</span></h3>
+                    <div class="chart-underline"></div>
+                </div>
+
+                <div class="stat-pills" style="margin-bottom: 32px;">
+                    <div class="stat-pill">
+                        <div class="stat-pill-label">Monthly Footfall*</div>
+                        <div class="stat-pill-value">9,000+</div>
+                    </div>
+                    <div class="stat-pill">
+                        <div class="stat-pill-label">Conversion Rate*</div>
+                        <div class="stat-pill-value">35%</div>
+                    </div>
+                    <div class="stat-pill">
+                        <div class="stat-pill-label">Rent to Revenue*</div>
+                        <div class="stat-pill-value">3%</div>
+                    </div>
+                    <div class="stat-pill">
+                        <div class="stat-pill-label">ABV*</div>
+                        <div class="stat-pill-value">₹15,500</div>
+                    </div>
+                </div>
+
+                <div class="grid grid-3">
+                    <div class="store-card">
+                        <div class="store-header">
+                            <div class="store-icon"><i class="fas fa-building"></i></div>
+                            <div>
+                                <div class="store-name">Delhi</div>
+                                <div class="store-meta">Since Apr'19</div>
+                            </div>
+                        </div>
+                        <div class="store-revenue">₹37.2 Cr</div>
+                        <div class="store-label">YTD FY'26</div>
+                        <div class="store-bar"><div class="store-bar-fill" style="width: 100%;"></div></div>
+                        <div class="store-mix">
+                            <div class="store-mix-item">
+                                <div class="store-mix-value">78%</div>
+                                <div class="store-mix-label">Shoes</div>
+                            </div>
+                            <div class="store-mix-item">
+                                <div class="store-mix-value">22%</div>
+                                <div class="store-mix-label">Apparel</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="store-card dark">
+                        <div class="store-header">
+                            <div class="store-icon"><i class="fas fa-building"></i></div>
+                            <div>
+                                <div class="store-name">Mumbai</div>
+                                <div class="store-meta">Since Jul'24</div>
+                            </div>
+                        </div>
+                        <div class="store-revenue">₹24.9 Cr</div>
+                        <div class="store-label">YTD FY'26</div>
+                        <div class="store-bar"><div class="store-bar-fill" style="width: 67%;"></div></div>
+                        <div class="store-mix">
+                            <div class="store-mix-item">
+                                <div class="store-mix-value">74%</div>
+                                <div class="store-mix-label">Shoes</div>
+                            </div>
+                            <div class="store-mix-item">
+                                <div class="store-mix-value">26%</div>
+                                <div class="store-mix-label">Apparel</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="store-card darker">
+                        <div class="store-header">
+                            <div class="store-icon"><i class="fas fa-building"></i></div>
+                            <div>
+                                <div class="store-name">Hyderabad</div>
+                                <div class="store-meta">Since Oct'24</div>
+                            </div>
+                        </div>
+                        <div class="store-revenue">₹11.3 Cr</div>
+                        <div class="store-label">YTD FY'26</div>
+                        <div class="store-bar"><div class="store-bar-fill" style="width: 30%;"></div></div>
+                        <div class="store-mix">
+                            <div class="store-mix-item">
+                                <div class="store-mix-value">74%</div>
+                                <div class="store-mix-label">Shoes</div>
+                            </div>
+                            <div class="store-mix-item">
+                                <div class="store-mix-value">26%</div>
+                                <div class="store-mix-label">Apparel</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="section-divider"></div>
+
+            <!-- Audited Section -->
+            <section id="audited" class="section">
+                <div class="page-header">
+                    <div>
+                        <h1 class="page-title">
+                            <span class="title-highlight">Audited</span> Financial Summary
+                        </h1>
+                        <div class="title-underline"></div>
+                    </div>
+                    <div class="header-logo">
+                        <span>CREPDOG</span><br>
+                        <span style="color: var(--olive-dark);">CREW</span>
+                    </div>
+                </div>
+
+                <div class="cdc-card white" style="margin-bottom: 32px;">
+                    <div id="auditedChart" style="height: 350px;"></div>
+                </div>
+
+                <div class="grid grid-2">
+                    <div class="cdc-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">Key Highlights</h3>
+                            <div class="chart-underline"></div>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <div class="metric-row" style="background: var(--white);">
+                                <div class="metric-row-icon"><i class="fas fa-check"></i></div>
+                                <span class="metric-row-label">Consistent GM improvement 20.5% → 21.3%</span>
+                            </div>
+                            <div class="metric-row" style="background: var(--white);">
+                                <div class="metric-row-icon"><i class="fas fa-check"></i></div>
+                                <span class="metric-row-label">Strong omnichannel growth with retail expansion</span>
+                            </div>
+                            <div class="metric-row" style="background: var(--white);">
+                                <div class="metric-row-icon"><i class="fas fa-check"></i></div>
+                                <span class="metric-row-label">Path to profitability with improving EBITDA</span>
+                            </div>
+                            <div class="metric-row" style="background: var(--white);">
+                                <div class="metric-row-icon"><i class="fas fa-check"></i></div>
+                                <span class="metric-row-label">Revenue more than doubled in 2 years</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cdc-card white">
+                        <div class="chart-header">
+                            <h3 class="chart-title">Auditor Information</h3>
+                            <div class="chart-underline"></div>
+                        </div>
+                        <div class="metric-row">
+                            <div class="metric-row-icon"><i class="fas fa-clipboard-check"></i></div>
+                            <span class="metric-row-label">Audit Opinion</span>
+                            <span class="metric-row-value" style="background: #DCFCE7; color: #166534;">Unqualified / Clean</span>
+                        </div>
+                        <div class="metric-row">
+                            <div class="metric-row-icon"><i class="fas fa-calendar-alt"></i></div>
+                            <span class="metric-row-label">Latest Audit Period</span>
+                            <span class="metric-row-value">FY 2024-25</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="section-divider"></div>
+
+            <!-- Documents Section -->
+            <section id="documents" class="section">
+                <div class="page-header">
+                    <div>
+                        <h1 class="page-title">
+                            <span class="title-highlight">Documentation</span>
+                        </h1>
+                        <div class="title-underline"></div>
+                    </div>
+                    <div class="header-logo">
+                        <span>CREPDOG</span><br>
+                        <span style="color: var(--olive-dark);">CREW</span>
+                    </div>
+                </div>
+
+                <div class="doc-grid">
+                    <a href="CrepDog Crew Pitch Deck - January'26.pdf" target="_blank" class="doc-card">
+                        <div class="doc-card-header lime">
+                            <div class="doc-icon"><i class="fas fa-chart-line"></i></div>
+                            <div>
+                                <div class="doc-title">Pitch Deck</div>
+                                <div class="doc-subtitle">January 2026</div>
+                            </div>
+                        </div>
+                        <div class="doc-card-body">
+                            <button class="doc-download-btn">
+                                <i class="fas fa-download"></i> Download PDF
+                            </button>
+                        </div>
+                    </a>
+
+                    <a href="Crepdog Crew_MIS_Operational Metrics_YTD FY26.xlsx" target="_blank" class="doc-card">
+                        <div class="doc-card-header olive">
+                            <div class="doc-icon"><i class="fas fa-table"></i></div>
+                            <div>
+                                <div class="doc-title">MIS & Metrics</div>
+                                <div class="doc-subtitle">YTD FY'26</div>
+                            </div>
+                        </div>
+                        <div class="doc-card-body">
+                            <button class="doc-download-btn">
+                                <i class="fas fa-download"></i> Download Excel
+                            </button>
+                        </div>
+                    </a>
+
+                    <a href="Financial Statement_31.03.2025 (1).pdf" target="_blank" class="doc-card">
+                        <div class="doc-card-header black">
+                            <div class="doc-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                            <div>
+                                <div class="doc-title">Audited FY'25</div>
+                                <div class="doc-subtitle">Financial Statements</div>
+                            </div>
+                        </div>
+                        <div class="doc-card-body">
+                            <button class="doc-download-btn">
+                                <i class="fas fa-download"></i> Download PDF
+                            </button>
+                        </div>
+                    </a>
+
+                    <a href="Financials_FY24_House of CDC Fashion Private Limited (1).pdf" target="_blank" class="doc-card">
+                        <div class="doc-card-header lime">
+                            <div class="doc-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                            <div>
+                                <div class="doc-title">Audited FY'24</div>
+                                <div class="doc-subtitle">Financial Statements</div>
+                            </div>
+                        </div>
+                        <div class="doc-card-body">
+                            <button class="doc-download-btn">
+                                <i class="fas fa-download"></i> Download PDF
+                            </button>
+                        </div>
+                    </a>
+
+                    <a href="Financial statement_31.03.2023 (1).pdf" target="_blank" class="doc-card">
+                        <div class="doc-card-header olive">
+                            <div class="doc-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                            <div>
+                                <div class="doc-title">Audited FY'23</div>
+                                <div class="doc-subtitle">Financial Statements</div>
+                            </div>
+                        </div>
+                        <div class="doc-card-body">
+                            <button class="doc-download-btn">
+                                <i class="fas fa-download"></i> Download PDF
+                            </button>
+                        </div>
+                    </a>
+
+                    <a href="CDC cap table - 31032025.xlsx" target="_blank" class="doc-card">
+                        <div class="doc-card-header black">
+                            <div class="doc-icon"><i class="fas fa-users"></i></div>
+                            <div>
+                                <div class="doc-title">Cap Table</div>
+                                <div class="doc-subtitle">March 2025</div>
+                            </div>
+                        </div>
+                        <div class="doc-card-body">
+                            <button class="doc-download-btn">
+                                <i class="fas fa-download"></i> Download Excel
+                            </button>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <div class="section-divider"></div>
+
+            <!-- Team Section -->
+            <section id="team" class="section">
+                <div class="page-header">
+                    <div>
+                        <h1 class="page-title">
+                            <span class="title-highlight">Founding</span> Team
+                        </h1>
+                        <div class="title-underline"></div>
+                        <p class="page-subtitle">Eclectic mix of operational expertise & strong retail acumen</p>
+                    </div>
+                    <div class="header-logo">
+                        <span>CREPDOG</span><br>
+                        <span style="color: var(--olive-dark);">CREW</span>
+                    </div>
+                </div>
+
+                <div class="team-photo">
+                    <img src="team_photo.jpeg" alt="Crep Dog Crew Founding Team">
+                </div>
+
+                <div class="grid grid-3" style="margin-bottom: 32px;">
+                    <div class="founder-card">
+                        <div class="founder-avatar">AK</div>
+                        <div class="founder-name">Anchit Kapil</div>
+                        <div class="founder-role">Co-Founder & CEO</div>
+                        <div class="founder-details">
+                            <div class="founder-detail">
+                                <i class="fas fa-graduation-cap"></i>
+                                Lancaster University
+                            </div>
+                            <div class="founder-detail">
+                                <i class="fas fa-briefcase"></i>
+                                Director | Summer House Cafe Delhi
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="founder-card dark">
+                        <div class="founder-avatar">BM</div>
+                        <div class="founder-name">Bharat Mahrotra</div>
+                        <div class="founder-role">Co-Founder & CBO</div>
+                        <div class="founder-details">
+                            <div class="founder-detail">
+                                <i class="fas fa-graduation-cap"></i>
+                                Lancaster University
+                            </div>
+                            <div class="founder-detail">
+                                <i class="fas fa-graduation-cap"></i>
+                                Warwick Business School
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="founder-card darker">
+                        <div class="founder-avatar">SK</div>
+                        <div class="founder-name">Shaurya Kumar</div>
+                        <div class="founder-role">Co-Founder & CBO</div>
+                        <div class="founder-details">
+                            <div class="founder-detail">
+                                <i class="fas fa-graduation-cap"></i>
+                                London School of Economics
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-box">
+                    <h2 class="contact-title">Get in Touch</h2>
+                    <p class="contact-subtitle">Interested in learning more about Crep Dog Crew?</p>
+                    <div class="contact-btns">
+                        <a href="mailto:fo1@crepdogcrew.com" class="contact-btn primary">
+                            <i class="fas fa-envelope"></i> Contact Investor Relations
+                        </a>
+                        <a href="https://crepdogcrew.com" target="_blank" class="contact-btn secondary">
+                            <i class="fas fa-globe"></i> Visit Website
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Access control
+        const accessOverlay = document.getElementById('accessOverlay');
+        const mainApp = document.getElementById('mainApp');
+        const accessForm = document.getElementById('accessForm');
+
+        if (sessionStorage.getItem('hasAccess') === 'true') {
+            accessOverlay.classList.add('hidden');
+            mainApp.style.display = 'flex';
+            initCharts();
+        }
+
+        accessForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            sessionStorage.setItem('hasAccess', 'true');
+            accessOverlay.classList.add('hidden');
+            mainApp.style.display = 'flex';
+            initCharts();
+        });
+
+        // Smooth scroll navigation with active state
+        const navItems = document.querySelectorAll('.nav-item');
+        const sections = document.querySelectorAll('.section');
+
+        // Update active nav on scroll
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === '#' + current) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        function initCharts() {
+            const limeColor = '#C0E529';
+            const oliveColor = '#6B8E23';
+            const oliveDark = '#4A5D23';
+            const oliveDarker = '#3D4A2B';
+            const blackColor = '#000000';
+
+            // Revenue Donut
+            new ApexCharts(document.querySelector("#revenueDonut"), {
+                series: [51, 49],
+                chart: { type: 'donut', height: 220 },
+                labels: ['Online', 'Retail'],
+                colors: [oliveDark, limeColor],
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            size: '70%',
+                            labels: {
+                                show: true,
+                                name: { show: true, fontSize: '14px', fontWeight: 700 },
+                                value: { show: true, fontSize: '20px', fontWeight: 900 },
+                                total: { show: true, label: 'Split', fontSize: '12px' }
+                            }
+                        }
+                    }
+                },
+                dataLabels: { enabled: false },
+                stroke: { width: 3, colors: [blackColor] },
+                legend: { position: 'bottom', fontWeight: 600 }
+            }).render();
+
+            // Retail donut
+            new ApexCharts(document.querySelector("#retailDonut"), {
+                series: [92, 8],
+                chart: { type: 'donut', height: 120 },
+                labels: ['Shoes', 'Apparel'],
+                colors: [oliveDark, limeColor],
+                plotOptions: { pie: { donut: { size: '65%' } } },
+                dataLabels: { enabled: false },
+                stroke: { width: 2, colors: [blackColor] },
+                legend: { show: false }
+            }).render();
+
+            // Online donut
+            new ApexCharts(document.querySelector("#onlineDonut"), {
+                series: [75, 25],
+                chart: { type: 'donut', height: 120 },
+                labels: ['Shoes', 'Apparel'],
+                colors: [oliveDark, limeColor],
+                plotOptions: { pie: { donut: { size: '65%' } } },
+                dataLabels: { enabled: false },
+                stroke: { width: 2, colors: [blackColor] },
+                legend: { show: false }
+            }).render();
+
+            // Revenue Chart
+            new ApexCharts(document.querySelector("#revenueChart"), {
+                series: [{
+                    name: 'Revenue',
+                    data: [17.1, 17.4, 23.6, 21.7, 27.1, 28.4, 37.8]
+                }],
+                chart: { type: 'bar', height: 350, toolbar: { show: false } },
+                plotOptions: { bar: { borderRadius: 8, columnWidth: '55%' } },
+                colors: [limeColor],
+                stroke: { width: 3, colors: [blackColor] },
+                dataLabels: {
+                    enabled: true,
+                    formatter: (val) => '₹' + val + 'Cr',
+                    offsetY: -20,
+                    style: { fontSize: '11px', fontWeight: 900, colors: [blackColor] }
+                },
+                xaxis: {
+                    categories: ["Q1'25", "Q2'25", "Q3'25", "Q4'25", "Q1'26", "Q2'26", "Q3'26"],
+                    labels: { style: { fontWeight: 600 } }
+                },
+                yaxis: { labels: { formatter: (val) => '₹' + val + 'Cr' } },
+                annotations: {
+                    points: [
+                        { x: "Q1'25", y: 17.1, marker: { size: 0 }, label: { text: '22%', borderWidth: 2, borderColor: blackColor, style: { background: blackColor, color: '#fff', fontWeight: 700, padding: { left: 8, right: 8, top: 4, bottom: 4 } } } },
+                        { x: "Q2'25", y: 17.4, marker: { size: 0 }, label: { text: '22%', borderWidth: 2, borderColor: blackColor, style: { background: blackColor, color: '#fff', fontWeight: 700, padding: { left: 8, right: 8, top: 4, bottom: 4 } } } },
+                        { x: "Q3'25", y: 23.6, marker: { size: 0 }, label: { text: '21%', borderWidth: 2, borderColor: blackColor, style: { background: blackColor, color: '#fff', fontWeight: 700, padding: { left: 8, right: 8, top: 4, bottom: 4 } } } },
+                        { x: "Q4'25", y: 21.7, marker: { size: 0 }, label: { text: '21%', borderWidth: 2, borderColor: blackColor, style: { background: blackColor, color: '#fff', fontWeight: 700, padding: { left: 8, right: 8, top: 4, bottom: 4 } } } },
+                        { x: "Q1'26", y: 27.1, marker: { size: 0 }, label: { text: '23%', borderWidth: 2, borderColor: blackColor, style: { background: blackColor, color: '#fff', fontWeight: 700, padding: { left: 8, right: 8, top: 4, bottom: 4 } } } },
+                        { x: "Q2'26", y: 28.4, marker: { size: 0 }, label: { text: '22%', borderWidth: 2, borderColor: blackColor, style: { background: blackColor, color: '#fff', fontWeight: 700, padding: { left: 8, right: 8, top: 4, bottom: 4 } } } },
+                        { x: "Q3'26", y: 37.8, marker: { size: 0 }, label: { text: '18%', borderWidth: 2, borderColor: blackColor, style: { background: blackColor, color: '#fff', fontWeight: 700, padding: { left: 8, right: 8, top: 4, bottom: 4 } } } }
+                    ]
+                },
+                grid: { borderColor: '#e0e0e0' }
+            }).render();
+
+            // Audited Chart
+            new ApexCharts(document.querySelector("#auditedChart"), {
+                series: [{ name: 'Revenue', data: [35.2, 65.3, 75.6] }],
+                chart: { type: 'bar', height: 350, toolbar: { show: false } },
+                plotOptions: { bar: { borderRadius: 12, columnWidth: '50%', distributed: true } },
+                colors: [oliveColor, oliveDark, limeColor],
+                stroke: { width: 3, colors: [blackColor] },
+                dataLabels: {
+                    enabled: true,
+                    formatter: (val) => '₹' + val + ' Cr',
+                    offsetY: -20,
+                    style: { fontSize: '16px', fontWeight: 900, colors: [blackColor] }
+                },
+                xaxis: {
+                    categories: ["FY'23", "FY'24", "FY'25"],
+                    labels: { style: { fontSize: '14px', fontWeight: 700 } }
+                },
+                yaxis: { labels: { formatter: (val) => '₹' + val + 'Cr' } },
+                legend: { show: false },
+                grid: { borderColor: '#e0e0e0' }
+            }).render();
+        }
+    </script>
+</body>
+</html>
